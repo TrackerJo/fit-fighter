@@ -2,6 +2,7 @@ const express = require("express");
 const { v4: uuidv4 } = require("uuid");
 const db = require("../database");
 const { authMiddleware } = require("../middleware/auth");
+const { emitToUser } = require("../events");
 
 const router = express.Router();
 
@@ -75,6 +76,13 @@ router.post("/request", (req, res) => {
 
     db.insertOne("friendRequests", friendRequest);
 
+    const sender = db.findOne("users", (u) => u.id === req.userId);
+    emitToUser(friendId, "friend-request-received", {
+        requestId: friendRequest.id,
+        fromId: req.userId,
+        fromName: sender ? sender.name : "Unknown",
+    });
+
     return res.status(201).json({ message: "Friend request sent", request: friendRequest });
 });
 
@@ -132,6 +140,13 @@ router.post("/request/:requestId/accept", (req, res) => {
         createdAt: new Date().toISOString(),
     };
     db.insertOne("friendships", friendship);
+
+    const accepter = db.findOne("users", (u) => u.id === req.userId);
+    emitToUser(friendReq.from, "friend-request-accepted", {
+        requestId: friendReq.id,
+        byId: req.userId,
+        byName: accepter ? accepter.name : "Unknown",
+    });
 
     return res.json({ message: "Friend request accepted", friendship });
 });

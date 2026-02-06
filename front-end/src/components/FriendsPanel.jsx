@@ -3,6 +3,7 @@ import { useFriends } from '../hooks/useFriends';
 import { useCompetitions } from '../hooks/useCompetitions';
 import { AuthContext } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
+import { useNotification } from '../context/NotificationContext';
 import AnimatedContent from './reactbits/AnimatedContent';
 import ShinyText from './reactbits/ShinyText';
 import { FiX, FiSearch, FiUserPlus, FiUserCheck, FiUserX } from 'react-icons/fi';
@@ -16,11 +17,23 @@ export default function FriendsPanel({ open, onClose }) {
   } = useFriends();
   const { sendChallenge } = useCompetitions();
   const toast = useToast();
+  const notification = useNotification();
   const [query, setQuery] = useState('');
   const [tab, setTab] = useState('friends');
   const [challengingId, setChallengingId] = useState(null);
   const inputRef = useRef(null);
   const debounceRef = useRef(null);
+
+  // Show toasts for live friend-related notifications
+  useEffect(() => {
+    if (!notification?.lastEvent) return;
+    const { type, data } = notification.lastEvent;
+    if (type === 'friend-request-received') {
+      toast.info(`${data.fromName} sent you a friend request!`);
+    } else if (type === 'friend-request-accepted') {
+      toast.success(`${data.byName} accepted your friend request!`);
+    }
+  }, [notification?.lastEvent, toast]);
 
   useEffect(() => {
     if (open && inputRef.current) inputRef.current.focus();

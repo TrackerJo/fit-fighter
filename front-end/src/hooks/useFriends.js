@@ -1,5 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { api } from '../api/client';
+import { useNotification } from '../context/NotificationContext';
 
 export function useFriends() {
   const [friends, setFriends] = useState([]);
@@ -7,6 +8,7 @@ export function useFriends() {
   const [outgoing, setOutgoing] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
+  const notification = useNotification();
 
   const refresh = useCallback(async () => {
     setLoading(true);
@@ -24,6 +26,15 @@ export function useFriends() {
   }, []);
 
   useEffect(() => { refresh(); }, [refresh]);
+
+  // Auto-refresh when a friend-related notification arrives via SSE
+  useEffect(() => {
+    if (!notification?.lastEvent) return;
+    const { type } = notification.lastEvent;
+    if (type === 'friend-request-received' || type === 'friend-request-accepted') {
+      refresh();
+    }
+  }, [notification?.lastEvent, refresh]);
 
   const search = useCallback(async (name) => {
     if (!name || name.length < 2) { setSearchResults([]); return; }

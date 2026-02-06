@@ -12,6 +12,7 @@ import AnimatedContent from '../components/reactbits/AnimatedContent';
 import GradientText from '../components/reactbits/GradientText';
 import SplitText from '../components/reactbits/SplitText';
 import ShinyText from '../components/reactbits/ShinyText';
+import ConfirmModal from '../components/ConfirmModal';
 import { FiArrowLeft, FiStopCircle, FiRadio } from 'react-icons/fi';
 
 export default function DuelDetail() {
@@ -26,6 +27,7 @@ export default function DuelDetail() {
   const [theirScore, setTheirScore] = useState(0);
   const [loading, setLoading] = useState(true);
   const [ending, setEnding] = useState(false);
+  const [showEndModal, setShowEndModal] = useState(false);
   const [result, setResult] = useState(null);
   const [opponentActivity, setOpponentActivity] = useState(null);
   const activityTimer = useRef(null);
@@ -118,7 +120,7 @@ export default function DuelDetail() {
   };
 
   const handleEnd = async () => {
-    if (!window.confirm('End this competition? The winner will be determined by total score.')) return;
+    setShowEndModal(false);
     setEnding(true);
     try {
       const data = await api.endCompetition(id);
@@ -170,7 +172,7 @@ export default function DuelDetail() {
         {isActive && (
           <button
             className="btn btn-danger btn-sm"
-            onClick={handleEnd}
+            onClick={() => setShowEndModal(true)}
             disabled={ending}
           >
             <FiStopCircle size={14} />
@@ -178,6 +180,17 @@ export default function DuelDetail() {
           </button>
         )}
       </div>
+
+      <ConfirmModal
+        open={showEndModal}
+        title="End Competition?"
+        message="The winner will be determined by total score. This cannot be undone."
+        confirmLabel="End Duel"
+        cancelLabel="Keep Going"
+        danger
+        onConfirm={handleEnd}
+        onCancel={() => setShowEndModal(false)}
+      />
 
       {result && (
         <AnimatedContent distance={40} duration={0.5}>

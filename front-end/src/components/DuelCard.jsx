@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import Counter from './reactbits/Counter';
 import ShinyText from './reactbits/ShinyText';
 
-export default function DuelCard({ competition, userId }) {
+export default function DuelCard({ competition, userId, flash }) {
   const navigate = useNavigate();
 
   const isUserA = competition.userA === userId;
@@ -20,7 +20,7 @@ export default function DuelCard({ competition, userId }) {
 
   return (
     <div
-      className="duel-card"
+      className={`duel-card${flash ? ' duel-card-flash' : ''}`}
       onClick={() => navigate(`/duel/${competition.id}`)}
       role="button"
       tabIndex={0}

@@ -1,13 +1,16 @@
-import { useContext, useCallback } from 'react';
+import { useContext, useCallback, useMemo, useState, useRef, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useCompetitions } from '../hooks/useCompetitions';
+import { useDashboardStreams } from '../hooks/useDashboardStreams';
 import { useToast } from '../context/ToastContext';
+import { useNotification } from '../context/NotificationContext';
 import DuelCard from '../components/DuelCard';
 import RequestCard from '../components/RequestCard';
 import CountUp from '../components/reactbits/CountUp';
 import SplitText from '../components/reactbits/SplitText';
 import AnimatedContent from '../components/reactbits/AnimatedContent';
 import ShinyText from '../components/reactbits/ShinyText';
+import { FiRadio } from 'react-icons/fi';
 
 export default function Dashboard() {
   const { user } = useContext(AuthContext);
@@ -16,6 +19,43 @@ export default function Dashboard() {
     acceptChallenge, declineChallenge, refresh
   } = useCompetitions();
   const toast = useToast();
+  const notification = useNotification();
+
+  // Show toasts for live competition-related notifications
+  useEffect(() => {
+    if (!notification?.lastEvent) return;
+    const { type, data } = notification.lastEvent;
+    if (type === 'competition-request-received') {
+      toast.info(`${data.fromName} challenged you to a duel!`);
+    } else if (type === 'competition-request-accepted') {
+      toast.success(`${data.byName} accepted your challenge!`);
+    }
+  }, [notification?.lastEvent, toast]);
+
+  // Track which cards just received an update (for flash effect)
+  const [flashIds, setFlashIds] = useState(new Set());
+  const flashTimers = useRef({});
+
+  // SSE: subscribe to every active competition
+  const activeIds = useMemo(() => active.map((c) => c.id), [active]);
+
+  const handleSSEEvent = useCallback((compId, event, data) => {
+    if (['set-logged', 'sets-logged', 'set-deleted', 'competition-ended'].includes(event)) {
+      refresh();
+      // Flash the updated card briefly
+      setFlashIds((prev) => new Set(prev).add(compId));
+      clearTimeout(flashTimers.current[compId]);
+      flashTimers.current[compId] = setTimeout(() => {
+        setFlashIds((prev) => {
+          const next = new Set(prev);
+          next.delete(compId);
+          return next;
+        });
+      }, 1500);
+    }
+  }, [refresh]);
+
+  const { liveCount } = useDashboardStreams(activeIds, handleSSEEvent);
 
   const handleAccept = useCallback(async (requestId) => {
     try {
@@ -85,7 +125,14 @@ export default function Dashboard() {
       )}
 
       <section className="dashboard-section">
-        <h2 className="section-title">Active Duels</h2>
+        <div className="section-title-row">
+          <h2 className="section-title">Active Duels</h2>
+          {liveCount > 0 && (
+            <span className="live-indicator">
+              <FiRadio size={12} /> LIVE
+            </span>
+          )}
+        </div>
         {loading && active.length === 0 && (
           <p className="empty-state">Loading...</p>
         )}
@@ -99,7 +146,7 @@ export default function Dashboard() {
         <div className="duel-grid">
           {active.map((comp) => (
             <AnimatedContent key={comp.id} distance={30} duration={0.4}>
-              <DuelCard competition={comp} userId={user.id} />
+              <DuelCard competition={comp} userId={user.id} flash={flashIds.has(comp.id)} />
             </AnimatedContent>
           ))}
         </div>

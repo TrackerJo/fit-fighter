@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const db = require("../database");
 const { authMiddleware } = require("../middleware/auth");
 const { calculateTotalScore } = require("../scoring");
-const { subscribe, emit } = require("../events");
+const { subscribe, emit, emitToUser } = require("../events");
 
 const router = express.Router();
 
@@ -69,6 +69,13 @@ router.post("/request", (req, res) => {
     };
 
     db.insertOne("competitionRequests", compRequest);
+
+    const sender = db.findOne("users", (u) => u.id === req.userId);
+    emitToUser(friendId, "competition-request-received", {
+        requestId: compRequest.id,
+        fromId: req.userId,
+        fromName: sender ? sender.name : "Unknown",
+    });
 
     return res
         .status(201)
@@ -138,6 +145,14 @@ router.post("/request/:requestId/accept", (req, res) => {
     };
 
     db.insertOne("competitions", competition);
+
+    const accepter = db.findOne("users", (u) => u.id === req.userId);
+    emitToUser(compReq.from, "competition-request-accepted", {
+        requestId: compReq.id,
+        competitionId: competition.id,
+        byId: req.userId,
+        byName: accepter ? accepter.name : "Unknown",
+    });
 
     return res.json({ message: "Competition started!", competition });
 });

@@ -363,6 +363,16 @@ a:hover { color: var(--accent-hover); }
   margin-top: 4px;
 }
 
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-title-row .live-indicator {
+  margin-bottom: 12px;
+}
+
 /* ── Duel Cards ── */
 .duel-grid {
   display: flex;
@@ -1139,4 +1149,102 @@ a:hover { color: var(--accent-hover); }
 .activity-pulse {
   animation: live-pulse 1s ease-in-out infinite;
   flex-shrink: 0;
+}
+
+/* Dashboard card flash on score update */
+.duel-card-flash {
+  animation: duel-flash 1.5s ease;
+}
+
+@keyframes duel-flash {
+  0% { border-color: rgba(74, 222, 128, 0.6); box-shadow: 0 0 12px rgba(74, 222, 128, 0.15); }
+  100% { border-color: var(--border); box-shadow: none; }
+}
+
+/* ── Confirm Modal ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  animation: modal-fade-in 0.2s ease;
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-card {
+  background: var(--bg-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg, 16px);
+  padding: 28px 24px 20px;
+  max-width: 340px;
+  width: 90%;
+  text-align: center;
+  animation: modal-slide-up 0.25s ease;
+}
+
+@keyframes modal-slide-up {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 68, 68, 0.1);
+  color: #ff6b6b;
+  margin-bottom: 14px;
+}
+
+.modal-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 8px;
+}
+
+.modal-message {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin: 0 0 20px;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.modal-actions .btn {
+  flex: 1;
+  min-width: 0;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-ghost:hover {
+  background: var(--bg-2);
+  border-color: var(--text-muted);
 }
