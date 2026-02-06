@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
+      "name": "Jason Emsley",
+      "email": "jtey20@gmail.com",
+      "password": "$2b$10$rL8lXuqjAESzQpx/w7X5ROYCFadh./62tRbtCpt3UYxFGTuiXzPYO",
+      "createdAt": "2026-02-06T01:13:47.890Z"
+    }
+  ],
+  "friendRequests": [],
+  "friendships": [],
+  "competitionRequests": [],
+  "competitions": [],
+  "workoutSets": []
+}

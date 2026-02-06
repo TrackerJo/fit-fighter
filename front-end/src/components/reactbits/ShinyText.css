@@ -1,0 +1,17 @@
+@keyframes shiny-slide {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shiny-text {
+  background: linear-gradient(
+    120deg,
+    currentColor 40%,
+    #fff 50%,
+    currentColor 60%
+  );
+  background-size: 200% 100%;
+  background-clip: text; -webkit-background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+  animation: shiny-slide var(--shiny-speed, 5s) linear infinite;
+}
+.shiny-text.disabled { animation: none; background: none; color: inherit; -webkit-text-fill-color: inherit; }

@@ -1,0 +1,16 @@
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.gradient-text-wrapper { display: inline-block; position: relative; }
+.gradient-text-wrapper.with-border {
+  padding: 0.25rem 0.5rem; border-radius: 0.375rem;
+  border: 1px solid #333;
+}
+.gradient-text-inner {
+  background-size: 300% 100%;
+  background-clip: text; -webkit-background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+  animation: gradient-shift 8s ease infinite;
+}
