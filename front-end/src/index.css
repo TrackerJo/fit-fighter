@@ -854,4 +854,157 @@ a:hover { color: var(--accent-hover); }
   .stats-row { gap: 8px; }
   .stat-card { padding: 12px 8px; }
   .stat-value { font-size: 1.25rem; }
+  .solo-score-display { padding: 20px 0; }
+}
+
+/* ═══════════════════════════════════════════════
+   SOLO MODE
+   ═══════════════════════════════════════════════ */
+
+/* Start button section */
+.solo-start-section {
+  margin-top: 4px;
+}
+
+.solo-start-btn {
+  font-size: 1rem;
+  padding: 14px 20px;
+  gap: 8px;
+}
+
+/* Session list */
+.solo-session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.solo-session-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.solo-session-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-3);
+}
+
+.solo-session-card.active {
+  border-left: 3px solid var(--accent);
+}
+
+.solo-session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.solo-session-name {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.solo-session-score {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Records list */
+.solo-records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.solo-record-row {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+}
+
+/* Best session card */
+.solo-best-session-card {
+  text-align: center;
+  padding: 20px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.solo-best-date {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* History cards */
+.solo-history-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.solo-history-card:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-3);
+}
+
+.solo-history-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.solo-history-score {
+  margin-top: 4px;
+}
+
+.solo-history-pts {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-secondary);
+}
+
+/* Detail page score display */
+.solo-score-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 24px 0;
+}
+
+.solo-set-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.solo-detail-page .page-header {
+  justify-content: flex-start;
+}
+
+.solo-detail-page .page-header .page-title {
+  flex: 1;
 }

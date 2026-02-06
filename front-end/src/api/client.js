@@ -71,4 +71,21 @@ export const api = {
     }),
   getSets: competitionId => request(`/workouts/sets/${competitionId}`),
   deleteSet: setId => request(`/workouts/sets/${setId}`, { method: 'DELETE' }),
+
+  /* ── Solo ── */
+  createSoloSession: (name) =>
+    request('/solo/sessions', { method: 'POST', body: JSON.stringify({ name }) }),
+  activeSoloSessions: () => request('/solo/sessions/active'),
+  soloHistory: () => request('/solo/sessions/history'),
+  soloRecords: () => request('/solo/records'),
+  soloSessionDetail: (sessionId) => request(`/solo/sessions/${sessionId}`),
+  endSoloSession: (sessionId) =>
+    request(`/solo/sessions/${sessionId}/end`, { method: 'POST' }),
+  logSoloSet: (sessionId, exercise, weight, reps) =>
+    request('/solo/sets', {
+      method: 'POST',
+      body: JSON.stringify({ sessionId, exercise, weight, reps })
+    }),
+  deleteSoloSet: (setId) =>
+    request(`/solo/sets/${setId}`, { method: 'DELETE' }),
 };

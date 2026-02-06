@@ -6,6 +6,8 @@ import RegisterPage from './pages/RegisterPage';
 import Dashboard from './pages/Dashboard';
 import DuelDetail from './pages/DuelDetail';
 import HistoryPage from './pages/HistoryPage';
+import SoloPage from './pages/SoloPage';
+import SoloSessionDetail from './pages/SoloSessionDetail';
 
 export default function App() {
   return (
@@ -22,6 +24,8 @@ export default function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/duel/:id" element={<DuelDetail />} />
         <Route path="/history" element={<HistoryPage />} />
+        <Route path="/solo" element={<SoloPage />} />
+        <Route path="/solo/:id" element={<SoloSessionDetail />} />
       </Route>
       <Route path="*" element={<Navigate to="/dashboard" replace />} />
     </Routes>

@@ -5,6 +5,7 @@ const authRoutes = require("./routes/auth");
 const friendRoutes = require("./routes/friends");
 const competitionRoutes = require("./routes/competitions");
 const workoutRoutes = require("./routes/workouts");
+const soloRoutes = require("./routes/solo");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +24,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/friends", friendRoutes);
 app.use("/api/competitions", competitionRoutes);
 app.use("/api/workouts", workoutRoutes);
+app.use("/api/solo", soloRoutes);
 
 // ─── 404 catch-all ──────────────────────────────────────────────────────────
 app.use((_req, res) => {

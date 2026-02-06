@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import Dock from './reactbits/Dock';
 import FriendsPanel from './FriendsPanel';
-import { FiHome, FiUsers, FiClock, FiLogOut } from 'react-icons/fi';
+import { FiHome, FiUsers, FiClock, FiLogOut, FiTarget } from 'react-icons/fi';
 
 export default function Layout() {
   const { logout } = useContext(AuthContext);
@@ -17,6 +17,12 @@ export default function Layout() {
       label: 'Dashboard',
       onClick: () => navigate('/dashboard'),
       className: location.pathname === '/dashboard' ? 'dock-active' : ''
+    },
+    {
+      icon: <FiTarget size={20} />,
+      label: 'Solo',
+      onClick: () => navigate('/solo'),
+      className: location.pathname.startsWith('/solo') ? 'dock-active' : ''
     },
     {
       icon: <FiUsers size={20} />,
