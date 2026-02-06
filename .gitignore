@@ -1,0 +1,28 @@
+# Node
+node_modules/
+**/node_modules/
+package-lock.json
+npm-debug.log
+.yarnrc
+.pnpm-debug.log
+
+# Vite
+dist/
+
+# Env
+.env
+.env.local
+
+# OS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+logs
+*.log
+
+# Build
+build/
