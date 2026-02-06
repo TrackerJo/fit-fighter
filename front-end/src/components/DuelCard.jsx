@@ -5,17 +5,15 @@ import ShinyText from './reactbits/ShinyText';
 export default function DuelCard({ competition, userId }) {
   const navigate = useNavigate();
 
-  const isUser1 = competition.user1Id === userId;
-  const opponentName = isUser1
-    ? (competition.user2Name || 'Opponent')
-    : (competition.user1Name || 'Opponent');
+  const isUserA = competition.userA === userId;
+  const opponentName = competition.opponentName || 'Opponent';
 
-  const myScore = isUser1
-    ? (competition.user1Score || 0)
-    : (competition.user2Score || 0);
-  const theirScore = isUser1
-    ? (competition.user2Score || 0)
-    : (competition.user1Score || 0);
+  const myScore = isUserA
+    ? (competition.scoreA || 0)
+    : (competition.scoreB || 0);
+  const theirScore = isUserA
+    ? (competition.scoreB || 0)
+    : (competition.scoreA || 0);
 
   const isWinning = myScore > theirScore;
   const isTied = myScore === theirScore;

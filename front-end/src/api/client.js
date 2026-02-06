@@ -31,8 +31,8 @@ export const api = {
 
   /* ── Friends ── */
   searchUsers: name => request(`/friends/search?name=${encodeURIComponent(name)}`),
-  sendFriendRequest: recipientId =>
-    request('/friends/request', { method: 'POST', body: JSON.stringify({ recipientId }) }),
+  sendFriendRequest: friendId =>
+    request('/friends/request', { method: 'POST', body: JSON.stringify({ friendId }) }),
   incomingFriendRequests: () => request('/friends/requests/incoming'),
   outgoingFriendRequests: () => request('/friends/requests/outgoing'),
   acceptFriendRequest: requestId =>
@@ -44,8 +44,8 @@ export const api = {
     request(`/friends/${friendId}`, { method: 'DELETE' }),
 
   /* ── Competitions ── */
-  sendCompetitionRequest: opponentId =>
-    request('/competitions/request', { method: 'POST', body: JSON.stringify({ opponentId }) }),
+  sendCompetitionRequest: friendId =>
+    request('/competitions/request', { method: 'POST', body: JSON.stringify({ friendId }) }),
   incomingCompetitionRequests: () => request('/competitions/requests/incoming'),
   outgoingCompetitionRequests: () => request('/competitions/requests/outgoing'),
   acceptCompetitionRequest: requestId =>

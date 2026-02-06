@@ -65,7 +65,7 @@ export default function FriendsPanel({ open, onClose }) {
               .filter((u) => u.id !== user.id)
               .map((u) => {
                 const isFriend = friends.some((f) => f.id === u.id);
-                const isPending = outgoing.some((r) => r.recipientId === u.id);
+                const isPending = outgoing.some((r) => r.to === u.id);
                 return (
                   <div key={u.id} className="friend-row">
                     <span className="friend-name">{u.name}</span>
@@ -137,7 +137,7 @@ export default function FriendsPanel({ open, onClose }) {
                   <h3>Incoming</h3>
                   {incoming.map((r) => (
                     <div key={r.id} className="friend-row">
-                      <span className="friend-name">{r.senderName || r.senderId}</span>
+                      <span className="friend-name">{r.fromName || r.from}</span>
                       <div className="friend-actions">
                         <button className="icon-btn-sm" onClick={() => accept(r.id)} title="Accept">
                           <FiUserCheck size={14} />
@@ -155,7 +155,7 @@ export default function FriendsPanel({ open, onClose }) {
                   <h3>Outgoing</h3>
                   {outgoing.map((r) => (
                     <div key={r.id} className="friend-row">
-                      <span className="friend-name">{r.recipientName || r.recipientId}</span>
+                      <span className="friend-name">{r.toName || r.to}</span>
                       <span className="badge-sm">Pending</span>
                     </div>
                   ))}

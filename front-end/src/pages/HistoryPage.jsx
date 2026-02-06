@@ -64,12 +64,10 @@ export default function HistoryPage() {
 
       <div className="history-list">
         {history.map((comp) => {
-          const isUser1 = comp.user1Id === user.id;
-          const opponentName = isUser1
-            ? (comp.user2Name || 'Opponent')
-            : (comp.user1Name || 'Opponent');
-          const myScore = isUser1 ? (comp.user1Score || 0) : (comp.user2Score || 0);
-          const theirScore = isUser1 ? (comp.user2Score || 0) : (comp.user1Score || 0);
+          const isUserA = comp.userA === user.id;
+          const opponentName = comp.opponentName || (isUserA ? 'Opponent' : 'Opponent');
+          const myScore = isUserA ? (comp.scoreA || 0) : (comp.scoreB || 0);
+          const theirScore = isUserA ? (comp.scoreB || 0) : (comp.scoreA || 0);
           const isWin = comp.winnerId === user.id;
           const isTie = comp.winnerId === null;
 

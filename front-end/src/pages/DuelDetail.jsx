@@ -17,6 +17,7 @@ export default function DuelDetail() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [competition, setCompetition] = useState(null);
+  const [opponentName, setOpponentName] = useState('Opponent');
   const [mySets, setMySets] = useState([]);
   const [myScore, setMyScore] = useState(0);
   const [theirScore, setTheirScore] = useState(0);
@@ -29,19 +30,21 @@ export default function DuelDetail() {
       const data = await api.competitionDetail(id);
       setCompetition(data.competition);
       const comp = data.competition;
-      const isUser1 = comp.user1Id === user.id;
+      const p = data.participants;
+      const isUserA = comp.userA === user.id;
 
-      const myUserSets = isUser1 ? (comp.user1Sets || []) : (comp.user2Sets || []);
-      const theirUserSets = isUser1 ? (comp.user2Sets || []) : (comp.user1Sets || []);
+      const myUserSets = isUserA ? (p.userA?.sets || []) : (p.userB?.sets || []);
+      const theirUserSets = isUserA ? (p.userB?.sets || []) : (p.userA?.sets || []);
 
       setMySets(myUserSets);
-      setMyScore(calculateTotalScore(myUserSets));
-      setTheirScore(calculateTotalScore(theirUserSets));
+      setMyScore(isUserA ? (p.userA?.score || 0) : (p.userB?.score || 0));
+      setTheirScore(isUserA ? (p.userB?.score || 0) : (p.userA?.score || 0));
+      setOpponentName(isUserA ? (p.userB?.name || 'Opponent') : (p.userA?.name || 'Opponent'));
 
       if (comp.status === 'completed') {
         setResult({
           winner: comp.winnerId,
-          winnerName: comp.winnerName || (comp.winnerId === user.id ? 'You' : 'Opponent')
+          winnerName: comp.winnerId === user.id ? 'You' : 'Opponent'
         });
       }
     } catch (e) { console.error(e); }
@@ -73,13 +76,15 @@ export default function DuelDetail() {
     setEnding(true);
     try {
       const data = await api.endCompetition(id);
+      const r = data.result;
+      const winnerId = r?.winner?.id || null;
       setResult({
-        winner: data.competition.winnerId,
-        winnerName: data.competition.winnerId === user.id ? 'You' : (
-          data.competition.winnerId === null ? null : 'Opponent'
+        winner: winnerId,
+        winnerName: winnerId === user.id ? 'You' : (
+          winnerId === null ? null : (r?.winner?.name || 'Opponent')
         )
       });
-      setCompetition(data.competition);
+      loadDetail();
     } catch (e) { console.error(e); }
     finally { setEnding(false); }
   };
@@ -92,10 +97,6 @@ export default function DuelDetail() {
     return <div className="page"><p className="empty-state">Competition not found</p></div>;
   }
 
-  const isUser1 = competition.user1Id === user.id;
-  const opponentName = isUser1
-    ? (competition.user2Name || 'Opponent')
-    : (competition.user1Name || 'Opponent');
   const isActive = competition.status === 'active';
 
   return (

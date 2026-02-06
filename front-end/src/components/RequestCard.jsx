@@ -2,7 +2,7 @@ import { FiCheck, FiX, FiZap } from 'react-icons/fi';
 
 export default function RequestCard({ request, type, onAccept, onDecline }) {
   const isCompetition = type === 'competition';
-  const name = request.senderName || request.senderId || 'Unknown';
+  const name = request.fromName || request.from || 'Unknown';
 
   return (
     <div className="request-card">

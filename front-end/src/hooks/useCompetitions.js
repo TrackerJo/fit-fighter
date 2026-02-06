@@ -27,8 +27,8 @@ export function useCompetitions() {
 
   useEffect(() => { refresh(); }, [refresh]);
 
-  const sendChallenge = useCallback(async (opponentId) => {
-    await api.sendCompetitionRequest(opponentId);
+  const sendChallenge = useCallback(async (friendId) => {
+    await api.sendCompetitionRequest(friendId);
     refresh();
   }, [refresh]);
 
