@@ -62,6 +62,27 @@
       "email": "smokeb1770345684@test.com",
       "password": "$2b$10$0jbhl5GfK8HeQzhQNPTwo.dkNJfIWYSl4XMdIbYfVZ07In/ltIkBy",
       "createdAt": "2026-02-06T02:41:24.344Z"
+    },
+    {
+      "id": "025acf71-731b-41ee-8eed-01c22ee372f3",
+      "name": "Goku",
+      "email": "goku@gmail.com",
+      "password": "$2b$10$X4VrtQzSK9uAsBVagkO2Ae3oEQ4twczOUqcIu1Yjad/2cXeU6hVb.",
+      "createdAt": "2026-02-06T03:57:59.377Z"
+    },
+    {
+      "id": "72caa878-d5c5-4f59-872b-30934e9395cc",
+      "name": "RTAlice",
+      "email": "rta1770350751@test.com",
+      "password": "$2b$10$VY2sEPt6IW5aUHww9dXaaeLfcIePnm8EOsqyiBGRNlMKxboJy1KDK",
+      "createdAt": "2026-02-06T04:05:51.151Z"
+    },
+    {
+      "id": "275d6130-497f-497c-9523-3997aae9892b",
+      "name": "RTBob",
+      "email": "rtb1770350751@test.com",
+      "password": "$2b$10$E5LpYm5JEKiyCxiWU2fXRuBeOr9cQ507/TBIuNU8ndRtDujLeGoL.",
+      "createdAt": "2026-02-06T04:05:51.269Z"
     }
   ],
   "friendRequests": [
@@ -69,7 +90,7 @@
       "id": "3526e37f-effc-4c13-ad51-78433d50cec6",
       "from": "c75105fe-14f7-4d46-b2ca-a1e479efe94b",
       "to": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
-      "status": "pending",
+      "status": "accepted",
       "createdAt": "2026-02-06T01:54:43.040Z"
     },
     {
@@ -94,11 +115,32 @@
       "createdAt": "2026-02-06T02:41:24.420Z"
     },
     {
-      "id": "a1042539-ff59-4dd3-b677-ec72b689ce9a",
-      "from": "1b6edb0a-349c-4984-abf0-5413673db6ec",
+      "id": "fc598d12-dc7a-4a02-bb2d-4335184b3108",
+      "from": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
       "to": "29090980-b495-4a19-a860-58e85c24790c",
+      "status": "pending",
+      "createdAt": "2026-02-06T03:57:13.804Z"
+    },
+    {
+      "id": "e3d2e303-c939-48cc-8321-080e9943edd4",
+      "from": "025acf71-731b-41ee-8eed-01c22ee372f3",
+      "to": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
       "status": "accepted",
-      "createdAt": "2026-02-06T02:07:03.685Z"
+      "createdAt": "2026-02-06T03:58:07.168Z"
+    },
+    {
+      "id": "9892b809-5321-419d-8185-9d36d18b0d37",
+      "from": "025acf71-731b-41ee-8eed-01c22ee372f3",
+      "to": "3de5e663-8e61-4abf-86bb-e3355bb1ed4c",
+      "status": "pending",
+      "createdAt": "2026-02-06T03:58:21.942Z"
+    },
+    {
+      "id": "1d10f9ba-fad3-47f6-bb37-675055d3891b",
+      "from": "72caa878-d5c5-4f59-872b-30934e9395cc",
+      "to": "275d6130-497f-497c-9523-3997aae9892b",
+      "status": "accepted",
+      "createdAt": "2026-02-06T04:05:51.335Z"
     }
   ],
   "friendships": [
@@ -115,16 +157,28 @@
       "createdAt": "2026-02-06T02:04:33.979Z"
     },
     {
-      "id": "913636b1-232b-44db-a461-3ee955daebcc",
-      "userA": "1b6edb0a-349c-4984-abf0-5413673db6ec",
-      "userB": "29090980-b495-4a19-a860-58e85c24790c",
-      "createdAt": "2026-02-06T02:07:20.073Z"
-    },
-    {
       "id": "5df51d16-83fe-45a9-8701-f009a7f3a153",
       "userA": "67852d17-9a79-47de-9973-69fc0956d053",
       "userB": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
       "createdAt": "2026-02-06T02:41:24.443Z"
+    },
+    {
+      "id": "df0943aa-1450-4252-91d2-dd42c18a786c",
+      "userA": "c75105fe-14f7-4d46-b2ca-a1e479efe94b",
+      "userB": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
+      "createdAt": "2026-02-06T03:56:56.523Z"
+    },
+    {
+      "id": "42fd2d9a-0c96-43fc-8845-3c7a2c6f0f74",
+      "userA": "025acf71-731b-41ee-8eed-01c22ee372f3",
+      "userB": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
+      "createdAt": "2026-02-06T03:59:11.189Z"
+    },
+    {
+      "id": "e3fa4229-e783-49d5-a432-ea6e4a01a426",
+      "userA": "72caa878-d5c5-4f59-872b-30934e9395cc",
+      "userB": "275d6130-497f-497c-9523-3997aae9892b",
+      "createdAt": "2026-02-06T04:05:51.351Z"
     }
   ],
   "competitionRequests": [
@@ -143,13 +197,6 @@
       "createdAt": "2026-02-06T02:04:34.060Z"
     },
     {
-      "id": "70130686-05ec-48b9-a6db-84c423ccd8e3",
-      "from": "29090980-b495-4a19-a860-58e85c24790c",
-      "to": "1b6edb0a-349c-4984-abf0-5413673db6ec",
-      "status": "accepted",
-      "createdAt": "2026-02-06T02:07:24.740Z"
-    },
-    {
       "id": "fe6453ba-3870-4be0-98d8-b473f2e5c8e0",
       "from": "67852d17-9a79-47de-9973-69fc0956d053",
       "to": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
@@ -162,6 +209,27 @@
       "to": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
       "status": "accepted",
       "createdAt": "2026-02-06T02:41:24.771Z"
+    },
+    {
+      "id": "87e3d452-103f-4ef2-bad2-f688899d4fb3",
+      "from": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
+      "to": "c75105fe-14f7-4d46-b2ca-a1e479efe94b",
+      "status": "pending",
+      "createdAt": "2026-02-06T03:56:59.655Z"
+    },
+    {
+      "id": "5313d7ec-4c1e-4b38-827f-baa2fd60dbb8",
+      "from": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
+      "to": "025acf71-731b-41ee-8eed-01c22ee372f3",
+      "status": "accepted",
+      "createdAt": "2026-02-06T03:59:13.627Z"
+    },
+    {
+      "id": "1a6681c4-67af-468d-bbd9-4c4b688ae5dc",
+      "from": "72caa878-d5c5-4f59-872b-30934e9395cc",
+      "to": "275d6130-497f-497c-9523-3997aae9892b",
+      "status": "accepted",
+      "createdAt": "2026-02-06T04:05:51.357Z"
     }
   ],
   "competitions": [
@@ -188,17 +256,6 @@
       "scoreB": 815.38
     },
     {
-      "id": "6396aeff-0071-4b3c-af54-01c8281464e2",
-      "userA": "29090980-b495-4a19-a860-58e85c24790c",
-      "userB": "1b6edb0a-349c-4984-abf0-5413673db6ec",
-      "status": "active",
-      "startedAt": "2026-02-06T02:08:06.489Z",
-      "endedAt": null,
-      "winnerId": null,
-      "scoreA": 0,
-      "scoreB": 0
-    },
-    {
       "id": "1c359d3f-e7c3-4d57-9233-078e9ee4e4dc",
       "userA": "67852d17-9a79-47de-9973-69fc0956d053",
       "userB": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
@@ -219,6 +276,28 @@
       "winnerId": null,
       "scoreA": 1055.61,
       "scoreB": 1055.61
+    },
+    {
+      "id": "8d057759-687d-44ea-a4e9-d53fb70490b7",
+      "userA": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
+      "userB": "025acf71-731b-41ee-8eed-01c22ee372f3",
+      "status": "active",
+      "startedAt": "2026-02-06T03:59:57.990Z",
+      "endedAt": null,
+      "winnerId": null,
+      "scoreA": 0,
+      "scoreB": 0
+    },
+    {
+      "id": "e86e24c7-962d-429f-b51c-cea1feb831fa",
+      "userA": "72caa878-d5c5-4f59-872b-30934e9395cc",
+      "userB": "275d6130-497f-497c-9523-3997aae9892b",
+      "status": "completed",
+      "startedAt": "2026-02-06T04:05:51.373Z",
+      "endedAt": "2026-02-06T04:05:53.461Z",
+      "winnerId": "275d6130-497f-497c-9523-3997aae9892b",
+      "scoreA": 0,
+      "scoreB": 815.38
     }
   ],
   "workoutSets": [
@@ -263,16 +342,6 @@
       "loggedAt": "2026-02-06T02:04:34.185Z"
     },
     {
-      "id": "357a04cb-55c2-4812-809a-20845323f5a5",
-      "userId": "1b6edb0a-349c-4984-abf0-5413673db6ec",
-      "competitionId": "6396aeff-0071-4b3c-af54-01c8281464e2",
-      "exercise": "Bench Press",
-      "weight": 100,
-      "reps": 5,
-      "score": 362.39,
-      "loggedAt": "2026-02-06T02:08:15.565Z"
-    },
-    {
       "id": "6e3346ee-876b-4401-8c8b-e1440816d24e",
       "userId": "67852d17-9a79-47de-9973-69fc0956d053",
       "competitionId": "1c359d3f-e7c3-4d57-9233-078e9ee4e4dc",
@@ -311,6 +380,36 @@
       "reps": 8,
       "score": 1055.61,
       "loggedAt": "2026-02-06T02:41:24.821Z"
+    },
+    {
+      "id": "80f30a21-7109-46a0-bce0-3ca6c0b8b797",
+      "userId": "025acf71-731b-41ee-8eed-01c22ee372f3",
+      "competitionId": "8d057759-687d-44ea-a4e9-d53fb70490b7",
+      "exercise": "Bench Press",
+      "weight": 225,
+      "reps": 5,
+      "score": 815.38,
+      "loggedAt": "2026-02-06T04:00:10.113Z"
+    },
+    {
+      "id": "ef8620e4-4bfd-41c2-9a78-b0fac08fd6c4",
+      "userId": "2437efbb-156c-4a8a-bbb1-39aedbc65ebf",
+      "competitionId": "8d057759-687d-44ea-a4e9-d53fb70490b7",
+      "exercise": "Bench Press",
+      "weight": 225,
+      "reps": 6,
+      "score": 943.42,
+      "loggedAt": "2026-02-06T04:00:41.422Z"
+    },
+    {
+      "id": "78a51bb2-1577-42d2-9c99-51fe4c65717b",
+      "userId": "275d6130-497f-497c-9523-3997aae9892b",
+      "competitionId": "e86e24c7-962d-429f-b51c-cea1feb831fa",
+      "exercise": "Squat",
+      "weight": 225,
+      "reps": 5,
+      "score": 815.38,
+      "loggedAt": "2026-02-06T04:05:52.418Z"
     }
   ],
   "soloSessions": [

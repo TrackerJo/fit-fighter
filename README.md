@@ -1,3 +1,5 @@
+Group members: Jason Emsley, Nathaniel Kemme Nash
+
 # Fit Fighter API
 
 A competitive workout tracking backend built with Node.js, Express, and a JSON file database. Users can create accounts, add friends, challenge them to workout competitions, log sets throughout the week, and see who comes out on top.

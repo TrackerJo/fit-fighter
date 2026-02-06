@@ -1093,3 +1093,50 @@ a:hover { color: var(--accent-hover); }
     max-width: none;
   }
 }
+
+/* ── Real-Time Duel Indicators ── */
+.live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4ade80;
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+  border-radius: 20px;
+  animation: live-pulse 2s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.opponent-activity-banner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(74, 222, 128, 0.06);
+  border: 1px solid rgba(74, 222, 128, 0.15);
+  border-radius: var(--radius-md);
+  font-size: 0.85rem;
+  color: #4ade80;
+  margin-bottom: 12px;
+  animation: activity-slide-in 0.3s ease forwards;
+}
+
+@keyframes activity-slide-in {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.activity-pulse {
+  animation: live-pulse 1s ease-in-out infinite;
+  flex-shrink: 0;
+}

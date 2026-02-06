@@ -1,8 +1,9 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
+import { useState, useEffect, useContext, useCallback, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { api } from '../api/client';
 import { useToast } from '../context/ToastContext';
+import { useCompetitionStream } from '../hooks/useCompetitionStream';
 import { calculateSetScore, calculateTotalScore } from '../utils/scoring';
 import SetLogForm from '../components/SetLogForm';
 import ScoreBar from '../components/ScoreBar';
@@ -11,7 +12,7 @@ import AnimatedContent from '../components/reactbits/AnimatedContent';
 import GradientText from '../components/reactbits/GradientText';
 import SplitText from '../components/reactbits/SplitText';
 import ShinyText from '../components/reactbits/ShinyText';
-import { FiArrowLeft, FiStopCircle } from 'react-icons/fi';
+import { FiArrowLeft, FiStopCircle, FiRadio } from 'react-icons/fi';
 
 export default function DuelDetail() {
   const { id } = useParams();
@@ -26,6 +27,8 @@ export default function DuelDetail() {
   const [loading, setLoading] = useState(true);
   const [ending, setEnding] = useState(false);
   const [result, setResult] = useState(null);
+  const [opponentActivity, setOpponentActivity] = useState(null);
+  const activityTimer = useRef(null);
 
   const loadDetail = useCallback(async () => {
     try {
@@ -54,6 +57,45 @@ export default function DuelDetail() {
   }, [id, user.id]);
 
   useEffect(() => { loadDetail(); }, [loadDetail]);
+
+  // ── Real-time SSE stream ────────────────────────────────────────────────
+  const handleSSEEvent = useCallback((event, data) => {
+    if (event === 'connected') return;
+
+    if (event === 'set-logged' || event === 'sets-logged') {
+      // Refresh data from server to get accurate scores
+      loadDetail();
+
+      // If the event is from the opponent, show activity notification
+      if (data.userId !== user.id) {
+        const set = data.set || (data.sets && data.sets[0]);
+        const activity = set
+          ? `${data.userName} logged ${set.exercise}: ${set.weight} lbs × ${set.reps} reps`
+          : `${data.userName} logged ${data.count || 'new'} set(s)`;
+        setOpponentActivity(activity);
+        clearTimeout(activityTimer.current);
+        activityTimer.current = setTimeout(() => setOpponentActivity(null), 4000);
+      }
+    } else if (event === 'set-deleted') {
+      loadDetail();
+      if (data.userId !== user.id) {
+        setOpponentActivity(`${opponentName} removed a set`);
+        clearTimeout(activityTimer.current);
+        activityTimer.current = setTimeout(() => setOpponentActivity(null), 4000);
+      }
+    } else if (event === 'competition-ended') {
+      loadDetail();
+    }
+  }, [loadDetail, user.id, opponentName]);
+
+  const isActive = competition?.status === 'active';
+  const { connected } = useCompetitionStream(
+    isActive ? id : null,
+    handleSSEEvent
+  );
+
+  // Clean up activity timer on unmount
+  useEffect(() => () => clearTimeout(activityTimer.current), []);
 
   const handleLogSet = async (setData) => {
     // Optimistic update
@@ -103,8 +145,6 @@ export default function DuelDetail() {
     return <div className="page"><p className="empty-state">Competition not found</p></div>;
   }
 
-  const isActive = competition.status === 'active';
-
   return (
     <div className="page duel-detail-page">
       <div className="page-header">
@@ -121,6 +161,12 @@ export default function DuelDetail() {
           from={{ opacity: 0, y: 15 }}
           to={{ opacity: 1, y: 0 }}
         />
+        {isActive && connected && (
+          <span className="live-indicator" title="Real-time connected">
+            <FiRadio size={12} />
+            <span>LIVE</span>
+          </span>
+        )}
         {isActive && (
           <button
             className="btn btn-danger btn-sm"
@@ -153,6 +199,15 @@ export default function DuelDetail() {
             ) : (
               <span className="result-loss">{opponentName} wins</span>
             )}
+          </div>
+        </AnimatedContent>
+      )}
+
+      {opponentActivity && (
+        <AnimatedContent distance={20} duration={0.3}>
+          <div className="opponent-activity-banner">
+            <FiRadio size={12} className="activity-pulse" />
+            <span>{opponentActivity}</span>
           </div>
         </AnimatedContent>
       )}

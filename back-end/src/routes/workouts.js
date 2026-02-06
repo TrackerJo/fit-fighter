@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const db = require("../database");
 const { authMiddleware } = require("../middleware/auth");
 const { calculateSetScore, calculateTotalScore } = require("../scoring");
+const { emit } = require("../events");
 
 const router = express.Router();
 
@@ -51,6 +52,14 @@ router.post("/sets", (req, res) => {
     };
 
     db.insertOne("workoutSets", workoutSet);
+
+    // Notify real-time subscribers
+    const loggedBy = db.findOne("users", (u) => u.id === req.userId);
+    emit(competitionId, "set-logged", {
+        set: workoutSet,
+        userId: req.userId,
+        userName: loggedBy ? loggedBy.name : "Unknown",
+    });
 
     return res.status(201).json({
         message: "Set logged",
@@ -103,6 +112,17 @@ router.post("/sets/batch", (req, res) => {
         logged.push(workoutSet);
     }
 
+    // Notify real-time subscribers
+    if (logged.length > 0) {
+        const loggedBy = db.findOne("users", (u) => u.id === req.userId);
+        emit(competitionId, "sets-logged", {
+            sets: logged,
+            userId: req.userId,
+            userName: loggedBy ? loggedBy.name : "Unknown",
+            count: logged.length,
+        });
+    }
+
     return res.status(201).json({ message: `${logged.length} sets logged`, sets: logged });
 });
 
@@ -150,6 +170,12 @@ router.delete("/sets/:setId", (req, res) => {
     }
 
     db.removeMany("workoutSets", (s) => s.id === setId);
+
+    // Notify real-time subscribers
+    emit(existing.competitionId, "set-deleted", {
+        setId,
+        userId: req.userId,
+    });
 
     return res.json({ message: "Set deleted" });
 });

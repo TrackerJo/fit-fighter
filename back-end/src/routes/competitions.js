@@ -3,6 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const db = require("../database");
 const { authMiddleware } = require("../middleware/auth");
 const { calculateTotalScore } = require("../scoring");
+const { subscribe, emit } = require("../events");
 
 const router = express.Router();
 
@@ -270,6 +271,40 @@ router.get("/:competitionId", (req, res) => {
     });
 });
 
+// ─── Real-time SSE stream for a competition ────────────────────────────────
+router.get("/:competitionId/stream", (req, res) => {
+    const { competitionId } = req.params;
+
+    const comp = db.findOne("competitions", (c) => c.id === competitionId);
+    if (!comp) {
+        return res.status(404).json({ error: "Competition not found" });
+    }
+    if (comp.userA !== req.userId && comp.userB !== req.userId) {
+        return res.status(403).json({ error: "You are not part of this competition" });
+    }
+
+    // Set up SSE headers
+    res.writeHead(200, {
+        "Content-Type": "text/event-stream",
+        "Cache-Control": "no-cache",
+        "Connection": "keep-alive",
+        "X-Accel-Buffering": "no",
+    });
+
+    // Send an initial heartbeat so the client knows the connection is live
+    res.write("event: connected\ndata: {}\n\n");
+
+    // Register this response for future events
+    subscribe(competitionId, res);
+
+    // Keep-alive every 30 seconds
+    const heartbeat = setInterval(() => {
+        try { res.write(": heartbeat\n\n"); } catch { clearInterval(heartbeat); }
+    }, 30000);
+
+    req.on("close", () => clearInterval(heartbeat));
+});
+
 // ─── End competition ────────────────────────────────────────────────────────
 router.post("/:competitionId/end", (req, res) => {
     const { competitionId } = req.params;
@@ -322,17 +357,19 @@ router.post("/:competitionId/end", (req, res) => {
     const userB = db.findOne("users", (u) => u.id === comp.userB);
     const winner = winnerId ? db.findOne("users", (u) => u.id === winnerId) : null;
 
-    return res.json({
-        message: "Competition ended!",
-        result: {
-            competitionId,
-            scoreA,
-            scoreB,
-            userA: { id: comp.userA, name: userA ? userA.name : "Unknown" },
-            userB: { id: comp.userB, name: userB ? userB.name : "Unknown" },
-            winner: winner ? { id: winner.id, name: winner.name } : "Tie",
-        },
-    });
+    const result = {
+        competitionId,
+        scoreA,
+        scoreB,
+        userA: { id: comp.userA, name: userA ? userA.name : "Unknown" },
+        userB: { id: comp.userB, name: userB ? userB.name : "Unknown" },
+        winner: winner ? { id: winner.id, name: winner.name } : "Tie",
+    };
+
+    // Notify connected clients
+    emit(competitionId, "competition-ended", result);
+
+    return res.json({ message: "Competition ended!", result });
 });
 
 module.exports = router;
