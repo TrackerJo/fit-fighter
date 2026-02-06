@@ -1,6 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useCallback } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useCompetitions } from '../hooks/useCompetitions';
+import { useToast } from '../context/ToastContext';
 import DuelCard from '../components/DuelCard';
 import RequestCard from '../components/RequestCard';
 import CountUp from '../components/reactbits/CountUp';
@@ -14,8 +15,25 @@ export default function Dashboard() {
     active, incomingRequests, loading,
     acceptChallenge, declineChallenge, refresh
   } = useCompetitions();
+  const toast = useToast();
 
-  const totalWins = 0; // Could be computed from history if backend supported it
+  const handleAccept = useCallback(async (requestId) => {
+    try {
+      await acceptChallenge(requestId);
+      toast.success('Challenge accepted — competition started!');
+    } catch (err) {
+      toast.error(err.message || 'Failed to accept challenge');
+    }
+  }, [acceptChallenge, toast]);
+
+  const handleDecline = useCallback(async (requestId) => {
+    try {
+      await declineChallenge(requestId);
+      toast.info('Challenge declined');
+    } catch (err) {
+      toast.error(err.message || 'Failed to decline challenge');
+    }
+  }, [declineChallenge, toast]);
 
   return (
     <div className="page dashboard-page">
@@ -57,8 +75,8 @@ export default function Dashboard() {
                   key={r.id}
                   request={r}
                   type="competition"
-                  onAccept={acceptChallenge}
-                  onDecline={declineChallenge}
+                  onAccept={handleAccept}
+                  onDecline={handleDecline}
                 />
               ))}
             </div>

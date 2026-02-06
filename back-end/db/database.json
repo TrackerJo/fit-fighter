@@ -48,6 +48,20 @@
       "email": "bob@test.com",
       "password": "$2b$10$M7Lo34nCx5xNjbQeCMi7f.LhPVIOXRI2xQpWepmmkMv6hnGZPiA0G",
       "createdAt": "2026-02-06T02:00:47.892Z"
+    },
+    {
+      "id": "67852d17-9a79-47de-9973-69fc0956d053",
+      "name": "SmokeA",
+      "email": "smokea1770345684@test.com",
+      "password": "$2b$10$sW/QpUBfNkZEZ7fOF09NluPbh643mMx7FnT.u/iigI7Zs5J0LwwOy",
+      "createdAt": "2026-02-06T02:41:24.225Z"
+    },
+    {
+      "id": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "name": "SmokeB",
+      "email": "smokeb1770345684@test.com",
+      "password": "$2b$10$0jbhl5GfK8HeQzhQNPTwo.dkNJfIWYSl4XMdIbYfVZ07In/ltIkBy",
+      "createdAt": "2026-02-06T02:41:24.344Z"
     }
   ],
   "friendRequests": [
@@ -71,6 +85,13 @@
       "to": "e32b67ed-27de-4cfd-8d3a-30a60ed4a9aa",
       "status": "accepted",
       "createdAt": "2026-02-06T02:04:33.918Z"
+    },
+    {
+      "id": "6761f588-f727-4f98-9a65-e984bd477dc8",
+      "from": "67852d17-9a79-47de-9973-69fc0956d053",
+      "to": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "status": "accepted",
+      "createdAt": "2026-02-06T02:41:24.420Z"
     }
   ],
   "friendships": [
@@ -85,6 +106,12 @@
       "userA": "4ecf7fd7-452b-4750-bc74-ea3abeaffc2a",
       "userB": "e32b67ed-27de-4cfd-8d3a-30a60ed4a9aa",
       "createdAt": "2026-02-06T02:04:33.979Z"
+    },
+    {
+      "id": "5df51d16-83fe-45a9-8701-f009a7f3a153",
+      "userA": "67852d17-9a79-47de-9973-69fc0956d053",
+      "userB": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "createdAt": "2026-02-06T02:41:24.443Z"
     }
   ],
   "competitionRequests": [
@@ -101,6 +128,20 @@
       "to": "e32b67ed-27de-4cfd-8d3a-30a60ed4a9aa",
       "status": "accepted",
       "createdAt": "2026-02-06T02:04:34.060Z"
+    },
+    {
+      "id": "fe6453ba-3870-4be0-98d8-b473f2e5c8e0",
+      "from": "67852d17-9a79-47de-9973-69fc0956d053",
+      "to": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "status": "accepted",
+      "createdAt": "2026-02-06T02:41:24.449Z"
+    },
+    {
+      "id": "8d617001-2cd9-4ebc-80c0-ca871038f5e5",
+      "from": "67852d17-9a79-47de-9973-69fc0956d053",
+      "to": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "status": "accepted",
+      "createdAt": "2026-02-06T02:41:24.771Z"
     }
   ],
   "competitions": [
@@ -125,6 +166,28 @@
       "winnerId": "4ecf7fd7-452b-4750-bc74-ea3abeaffc2a",
       "scoreA": 851.79,
       "scoreB": 815.38
+    },
+    {
+      "id": "1c359d3f-e7c3-4d57-9233-078e9ee4e4dc",
+      "userA": "67852d17-9a79-47de-9973-69fc0956d053",
+      "userB": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "status": "completed",
+      "startedAt": "2026-02-06T02:41:24.510Z",
+      "endedAt": "2026-02-06T02:41:24.683Z",
+      "winnerId": "67852d17-9a79-47de-9973-69fc0956d053",
+      "scoreA": 851.79,
+      "scoreB": 815.38
+    },
+    {
+      "id": "1188f286-d1fb-41cc-a47e-d47d7371e194",
+      "userA": "67852d17-9a79-47de-9973-69fc0956d053",
+      "userB": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "status": "completed",
+      "startedAt": "2026-02-06T02:41:24.793Z",
+      "endedAt": "2026-02-06T02:41:24.827Z",
+      "winnerId": null,
+      "scoreA": 1055.61,
+      "scoreB": 1055.61
     }
   ],
   "workoutSets": [
@@ -167,6 +230,46 @@
       "reps": 5,
       "score": 815.38,
       "loggedAt": "2026-02-06T02:04:34.185Z"
+    },
+    {
+      "id": "6e3346ee-876b-4401-8c8b-e1440816d24e",
+      "userId": "67852d17-9a79-47de-9973-69fc0956d053",
+      "competitionId": "1c359d3f-e7c3-4d57-9233-078e9ee4e4dc",
+      "exercise": "Bench Press",
+      "weight": 135,
+      "reps": 10,
+      "score": 851.79,
+      "loggedAt": "2026-02-06T02:41:24.531Z"
+    },
+    {
+      "id": "c460f499-3354-45d7-9fe5-6be6b83333ec",
+      "userId": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "competitionId": "1c359d3f-e7c3-4d57-9233-078e9ee4e4dc",
+      "exercise": "Squat",
+      "weight": 225,
+      "reps": 5,
+      "score": 815.38,
+      "loggedAt": "2026-02-06T02:41:24.538Z"
+    },
+    {
+      "id": "efba5ccd-fb25-4e83-9393-a05c43ef1fa3",
+      "userId": "67852d17-9a79-47de-9973-69fc0956d053",
+      "competitionId": "1188f286-d1fb-41cc-a47e-d47d7371e194",
+      "exercise": "Deadlift",
+      "weight": 200,
+      "reps": 8,
+      "score": 1055.61,
+      "loggedAt": "2026-02-06T02:41:24.815Z"
+    },
+    {
+      "id": "1e144ce6-9f43-4b5b-b624-a7f806760604",
+      "userId": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
+      "competitionId": "1188f286-d1fb-41cc-a47e-d47d7371e194",
+      "exercise": "Deadlift",
+      "weight": 200,
+      "reps": 8,
+      "score": 1055.61,
+      "loggedAt": "2026-02-06T02:41:24.821Z"
     }
   ],
   "soloSessions": [

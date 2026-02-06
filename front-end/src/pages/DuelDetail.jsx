@@ -2,6 +2,7 @@ import { useState, useEffect, useContext, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { api } from '../api/client';
+import { useToast } from '../context/ToastContext';
 import { calculateSetScore, calculateTotalScore } from '../utils/scoring';
 import SetLogForm from '../components/SetLogForm';
 import ScoreBar from '../components/ScoreBar';
@@ -16,6 +17,7 @@ export default function DuelDetail() {
   const { id } = useParams();
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
+  const toast = useToast();
   const [competition, setCompetition] = useState(null);
   const [opponentName, setOpponentName] = useState('Opponent');
   const [mySets, setMySets] = useState([]);
@@ -63,8 +65,10 @@ export default function DuelDetail() {
 
     try {
       await api.logSet(id, setData.exercise, setData.weight, setData.reps);
+      toast.success(`Logged ${setData.exercise}: ${setData.weight} lbs × ${setData.reps} reps`);
       loadDetail(); // Reconcile with server
     } catch (e) {
+      toast.error(e.message || 'Failed to log set');
       // Rollback
       setMySets((prev) => prev.filter((s) => s.id !== tempSet.id));
       setMyScore((prev) => prev - optimisticScore);
@@ -85,7 +89,9 @@ export default function DuelDetail() {
         )
       });
       loadDetail();
-    } catch (e) { console.error(e); }
+      const winMsg = winnerId === user.id ? 'You won!' : winnerId === null ? "It's a tie!" : `${r?.winner?.name || 'Opponent'} wins!`;
+      toast.success(`Competition ended — ${winMsg}`);
+    } catch (e) { console.error(e); toast.error(e.message || 'Failed to end competition'); }
     finally { setEnding(false); }
   };
 

@@ -11,7 +11,11 @@ export function AuthProvider({ children }) {
     const token = localStorage.getItem('ff_token');
     if (!token) { setLoading(false); return; }
     api.me()
-      .then(data => setUser(data.user))
+      .then(data => {
+        // /me returns { id, name, email } directly (no wrapper)
+        const u = data.user || data;
+        setUser(u);
+      })
       .catch(() => localStorage.removeItem('ff_token'))
       .finally(() => setLoading(false));
   }, []);

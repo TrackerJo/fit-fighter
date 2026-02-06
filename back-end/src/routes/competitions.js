@@ -174,8 +174,21 @@ router.get("/active", (req, res) => {
     const enriched = competitions.map((c) => {
         const opponentId = c.userA === req.userId ? c.userB : c.userA;
         const opponent = db.findOne("users", (u) => u.id === opponentId);
+
+        // Calculate live scores from workout sets
+        const setsA = db.findMany(
+            "workoutSets",
+            (s) => s.competitionId === c.id && s.userId === c.userA
+        );
+        const setsB = db.findMany(
+            "workoutSets",
+            (s) => s.competitionId === c.id && s.userId === c.userB
+        );
+
         return {
             ...c,
+            scoreA: calculateTotalScore(setsA),
+            scoreB: calculateTotalScore(setsB),
             opponentName: opponent ? opponent.name : "Unknown",
         };
     });

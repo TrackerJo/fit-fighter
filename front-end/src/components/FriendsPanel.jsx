@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { useFriends } from '../hooks/useFriends';
 import { useCompetitions } from '../hooks/useCompetitions';
 import { AuthContext } from '../context/AuthContext';
+import { useToast } from '../context/ToastContext';
 import AnimatedContent from './reactbits/AnimatedContent';
 import ShinyText from './reactbits/ShinyText';
 import { FiX, FiSearch, FiUserPlus, FiUserCheck, FiUserX } from 'react-icons/fi';
@@ -14,8 +15,10 @@ export default function FriendsPanel({ open, onClose }) {
     search, sendRequest, accept, decline, remove, setSearchResults
   } = useFriends();
   const { sendChallenge } = useCompetitions();
+  const toast = useToast();
   const [query, setQuery] = useState('');
   const [tab, setTab] = useState('friends');
+  const [challengingId, setChallengingId] = useState(null);
   const inputRef = useRef(null);
   const debounceRef = useRef(null);
 
@@ -74,7 +77,14 @@ export default function FriendsPanel({ open, onClose }) {
                     ) : isPending ? (
                       <span className="badge-sm">Pending</span>
                     ) : (
-                      <button className="icon-btn-sm" onClick={() => sendRequest(u.id)} title="Add Friend">
+                      <button className="icon-btn-sm" onClick={async () => {
+                        try {
+                          await sendRequest(u.id);
+                          toast.success(`Friend request sent to ${u.name}!`);
+                        } catch (err) {
+                          toast.error(err.message || 'Failed to send request');
+                        }
+                      }} title="Add Friend">
                         <FiUserPlus size={14} />
                       </button>
                     )}
@@ -111,10 +121,21 @@ export default function FriendsPanel({ open, onClose }) {
                     <div className="friend-actions">
                       <button
                         className="icon-btn-sm"
-                        onClick={() => sendChallenge(f.id)}
+                        onClick={async () => {
+                          setChallengingId(f.id);
+                          try {
+                            await sendChallenge(f.id);
+                            toast.success(`Challenge sent to ${f.name}!`);
+                          } catch (err) {
+                            toast.error(err.message || 'Failed to send challenge');
+                          } finally {
+                            setChallengingId(null);
+                          }
+                        }}
                         title="Challenge"
+                        disabled={challengingId === f.id}
                       >
-                        <FiZap size={14} />
+                        {challengingId === f.id ? '…' : <FiZap size={14} />}
                       </button>
                       <button
                         className="icon-btn-sm danger"
