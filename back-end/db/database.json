@@ -8,6 +8,20 @@
       "createdAt": "2026-02-06T01:13:47.890Z"
     },
     {
+      "id": "29090980-b495-4a19-a860-58e85c24790c",
+      "name": "Bill",
+      "email": "bill@gmail.com",
+      "password": "$2b$10$WooBjQV1420zVt08.LDUk.NwyNfK1TroRvIT8ut7rZviAmOdHw29a",
+      "createdAt": "2026-02-06T01:45:55.096Z"
+    },
+    {
+      "id": "1b6edb0a-349c-4984-abf0-5413673db6ec",
+      "name": "Sam",
+      "email": "sam@gmail.com",
+      "password": "$2b$10$uw5VDBSWSBw1SahGv9pWZOxMYZXuPkdqTJScd79MIXrVDPeOYI1qa",
+      "createdAt": "2026-02-06T01:46:32.342Z"
+    },
+    {
       "id": "c75105fe-14f7-4d46-b2ca-a1e479efe94b",
       "name": "Test User",
       "email": "test@test.com",
