@@ -92,6 +92,13 @@
       "to": "930b7aac-c5fb-42d1-9bb0-dc42a93b7713",
       "status": "accepted",
       "createdAt": "2026-02-06T02:41:24.420Z"
+    },
+    {
+      "id": "a1042539-ff59-4dd3-b677-ec72b689ce9a",
+      "from": "1b6edb0a-349c-4984-abf0-5413673db6ec",
+      "to": "29090980-b495-4a19-a860-58e85c24790c",
+      "status": "accepted",
+      "createdAt": "2026-02-06T02:07:03.685Z"
     }
   ],
   "friendships": [
@@ -106,6 +113,12 @@
       "userA": "4ecf7fd7-452b-4750-bc74-ea3abeaffc2a",
       "userB": "e32b67ed-27de-4cfd-8d3a-30a60ed4a9aa",
       "createdAt": "2026-02-06T02:04:33.979Z"
+    },
+    {
+      "id": "913636b1-232b-44db-a461-3ee955daebcc",
+      "userA": "1b6edb0a-349c-4984-abf0-5413673db6ec",
+      "userB": "29090980-b495-4a19-a860-58e85c24790c",
+      "createdAt": "2026-02-06T02:07:20.073Z"
     },
     {
       "id": "5df51d16-83fe-45a9-8701-f009a7f3a153",
@@ -128,6 +141,13 @@
       "to": "e32b67ed-27de-4cfd-8d3a-30a60ed4a9aa",
       "status": "accepted",
       "createdAt": "2026-02-06T02:04:34.060Z"
+    },
+    {
+      "id": "70130686-05ec-48b9-a6db-84c423ccd8e3",
+      "from": "29090980-b495-4a19-a860-58e85c24790c",
+      "to": "1b6edb0a-349c-4984-abf0-5413673db6ec",
+      "status": "accepted",
+      "createdAt": "2026-02-06T02:07:24.740Z"
     },
     {
       "id": "fe6453ba-3870-4be0-98d8-b473f2e5c8e0",
@@ -166,6 +186,17 @@
       "winnerId": "4ecf7fd7-452b-4750-bc74-ea3abeaffc2a",
       "scoreA": 851.79,
       "scoreB": 815.38
+    },
+    {
+      "id": "6396aeff-0071-4b3c-af54-01c8281464e2",
+      "userA": "29090980-b495-4a19-a860-58e85c24790c",
+      "userB": "1b6edb0a-349c-4984-abf0-5413673db6ec",
+      "status": "active",
+      "startedAt": "2026-02-06T02:08:06.489Z",
+      "endedAt": null,
+      "winnerId": null,
+      "scoreA": 0,
+      "scoreB": 0
     },
     {
       "id": "1c359d3f-e7c3-4d57-9233-078e9ee4e4dc",
@@ -230,6 +261,16 @@
       "reps": 5,
       "score": 815.38,
       "loggedAt": "2026-02-06T02:04:34.185Z"
+    },
+    {
+      "id": "357a04cb-55c2-4812-809a-20845323f5a5",
+      "userId": "1b6edb0a-349c-4984-abf0-5413673db6ec",
+      "competitionId": "6396aeff-0071-4b3c-af54-01c8281464e2",
+      "exercise": "Bench Press",
+      "weight": 100,
+      "reps": 5,
+      "score": 362.39,
+      "loggedAt": "2026-02-06T02:08:15.565Z"
     },
     {
       "id": "6e3346ee-876b-4401-8c8b-e1440816d24e",
